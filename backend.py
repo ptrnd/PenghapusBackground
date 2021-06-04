@@ -30,6 +30,7 @@ class Backend(VisualizeEventListener):
         l = int(max(5, 6))
         u = int(min(6, 6))
 
+        # buat edge conture
         ed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         edges = cv.GaussianBlur(img, (21, 51), 4)
         edges = cv.cvtColor(edges, cv.COLOR_BGR2GRAY)
@@ -39,6 +40,7 @@ class Backend(VisualizeEventListener):
         kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (3, 3))
         mask = cv.morphologyEx(thresh, cv.MORPH_CLOSE, kernel, iterations=4)
 
+        # membuat gambar maskin
         data = mask.tolist()
         sys.setrecursionlimit(10 ** 8)
         for i in range(len(data)):
