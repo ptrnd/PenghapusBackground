@@ -13,7 +13,7 @@ class VisualizeEventListener:
 class Visualize:
     def __init__(self, backend : VisualizeEventListener):
         self.window = tk.Tk()
-        self.window.geometry('800x600')
+        self.window.geometry('800x400')
         self.window.title('Background Remover')
 
         self.backend = backend
@@ -48,6 +48,7 @@ class Visualize:
         self.canvas_before = tk.Canvas(master=self.frame_empat)
         self.canvas_before.pack(side=tk.LEFT)
         self.imgBefore = tk.PhotoImage(file="doraemon hitam.png")
+        self.imgBefore = self.imgBefore.subsample(2)
         self.canvas_before.create_image(100,100,image=self.imgBefore)
 
         self.frame_empat.grid(row=0, column=0, sticky='nsew')
@@ -60,8 +61,8 @@ class Visualize:
         self.canvas_after = tk.Canvas(master=self.frame_lima)
         self.canvas_after.pack(side=tk.RIGHT)
         self.imgAfter = tk.PhotoImage(file="doraemon hitam.png")
+        self.imgAfter = self.imgAfter.subsample(2)
         self.canvas_after.create_image(100,100,image=self.imgAfter)
-
         self.frame_lima.grid(row=0, column=1, sticky='s')
 
     def __bind_events(self):

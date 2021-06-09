@@ -60,6 +60,9 @@ class Backend(VisualizeEventListener):
 
         mask = np.array(image, np.uint8)
 
+        mask = cv.morphologyEx(mask, cv.MORPH_DILATE, kernel, iterations=3)
+        mask = cv.morphologyEx(mask, cv.MORPH_ERODE, kernel, iterations=4)
+
         result = cv.bitwise_and(original, original, mask=mask)
         result[mask == 0] = 255
         # cv.imshow(result)
@@ -81,12 +84,14 @@ class Backend(VisualizeEventListener):
         img.save("img.png", "PNG")
 
         self.__window.imgAfter = tk.PhotoImage(file="img.png")
-        self.__window.canvas_after.create_image(50,10,image=self.__window.imgAfter)
+        self.__window.imgAfter = self.__window.imgAfter.subsample(2)
+        self.__window.canvas_after.create_image(50,10,image=self.__window.imgAfter, anchor = "nw")
 
     def on_click_btn_file(self, event: tk.Event):
         filename = askopenfilename()
         self.__window.lbl_file['text'] = filename
         self.__window.imgBefore = tk.PhotoImage(file=filename)
-        self.__window.canvas_before.create_image(50,10,image=self.__window.imgBefore)
+        self.__window.imgBefore = self.__window.imgBefore.subsample(2)
+        self.__window.canvas_before.create_image(50,10,image=self.__window.imgBefore,anchor = "nw")
 
         self.Remove(file=filename)
