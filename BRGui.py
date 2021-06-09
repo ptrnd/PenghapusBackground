@@ -1,6 +1,7 @@
 import tkinter as tk
 import matplotlib as mp
 import numpy as np
+import time
 from tkinter import ttk
 
 class VisualizeEventListener:
@@ -22,29 +23,36 @@ class Visualize:
         self.__bind_events()
 
     def init_widgets(self):
+        # label perintah memasukkan gambar
         self.frame_satu = tk.Frame(master=self.window, borderwidth=1)  # , relief=tk.RAISED)
         self.lbl_input = tk.Label(master=self.frame_satu, text='Masukkan gambar jpg : ')
         self.lbl_input.pack(pady=3)
         self.frame_satu.grid(row=0, column=0, sticky='nw')
 
+        # tombol memasukkan gambar
         self.frame_dua = tk.Frame(master=self.window, borderwidth=1)  # , relief=tk.RAISED)
         self.btn_file = tk.Button(master=self.frame_dua, text='Pilih File', width=10)
         self.btn_file.pack(pady=3)
         self.frame_dua.grid(row=0, column=1, sticky='n')
+        # self.btn_file.bind('<Button-1>', self.backend.on_click_btn_file)
 
+        # label nama file yang dimasukkan
         self.frame_tiga = tk.Frame(master=self.window, borderwidth=1)  # , relief=tk.RAISED)
         self.lbl_file = tk.Label(master=self.frame_tiga, text='nama file', width=100)
         self.lbl_file.pack(pady=3)
         self.frame_tiga.grid(row=0, column=2, sticky='ne')
 
+        # frame gambar
         self.frame_img = tk.Frame(master=self.window, borderwidth=1)
         self.frame_img.grid(row=2,column=0, columnspan=4)
 
-        #Before
+        # Before
+        # label "sebelum"
         self.frame_empat = tk.Frame(master=self.frame_img, borderwidth=1)
         self.lbl_before = tk.Label(master=self.frame_empat, text='Before', width=10)
         self.lbl_before.pack(pady=0)
-        
+
+        # gambar sebelum backgroundnya dihapus
         self.canvas_before = tk.Canvas(master=self.frame_empat)
         self.canvas_before.pack(side=tk.LEFT)
         self.imgBefore = tk.PhotoImage(file="init.png")
@@ -54,10 +62,12 @@ class Visualize:
         self.frame_empat.grid(row=0, column=0, sticky='nsew')
 
         #After
+        # label "setelah"
         self.frame_lima = tk.Frame(master=self.frame_img, borderwidth=1)
         self.lbl_after = tk.Label(master=self.frame_lima, text='After', width=10)
         self.lbl_after.pack(pady=0)
 
+        # gambar setelah backgroundnya dihapus
         self.canvas_after = tk.Canvas(master=self.frame_lima)
         self.canvas_after.pack(side=tk.RIGHT)
         self.imgAfter = tk.PhotoImage(file="init.png")
@@ -65,8 +75,10 @@ class Visualize:
         self.canvas_after.create_image(100,100,image=self.imgAfter)
         self.frame_lima.grid(row=0, column=1, sticky='s')
 
+    # method tombol untuk memasukkan file
     def __bind_events(self):
         self.btn_file.bind('<Button-1>', self.backend.on_click_btn_file)
+        time.sleep(2)
 
 
     def show(self):
