@@ -27,41 +27,41 @@ class Backend(VisualizeEventListener):
         img = cv.imread(file, cv.IMREAD_UNCHANGED)
         original = img.copy()
 
-        l = int(max(5, 6))
-        u = int(min(6, 6))
-
         # buat edge conture
         ed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         edges = cv.GaussianBlur(img, (21, 51), 4)
         edges = cv.cvtColor(edges, cv.COLOR_BGR2GRAY)
-        edges = cv.Canny(edges, l, u)
+        edges = cv.Canny(edges, 6, 6)
 
         _, thresh = cv.threshold(edges, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
-        kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (3, 3))
+        kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (7, 7))
         mask = cv.morphologyEx(thresh, cv.MORPH_CLOSE, kernel, iterations=4)
 
         # membuat gambar maskin
-        data = mask.tolist()
-        sys.setrecursionlimit(10 ** 8)
-        for i in range(len(data)):
-            for j in range(len(data[i])):
-                if data[i][j] != 255:
-                    data[i][j] = -1
+        data =   mask.tolist()
+        for i in  range(len(data)):
+            for j in  range(len(data[i])):
+                if data[i][j] !=  255:
+                    data[i][j] =  -1
                 else:
                     break
-            for j in range(len(data[i]) - 1, -1, -1):
-                if data[i][j] != 255:
-                    data[i][j] = -1
+            for j in  range(len(data[i])-1, -1, -1):
+                if data[i][j] !=  255:
+                    data[i][j] =  -1
                 else:
                     break
+                    
         image = np.array(data)
-        image[image != -1] = 255
-        image[image == -1] = 0
+        image[image !=  -1] =  255
+        image[image ==  -1] =  0
 
         mask = np.array(image, np.uint8)
 
-        mask = cv.morphologyEx(mask, cv.MORPH_DILATE, kernel, iterations=3)
-        mask = cv.morphologyEx(mask, cv.MORPH_ERODE, kernel, iterations=4)
+        kernel = np.ones((5,5), np.uint8)
+        # closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+        mask = cv.morphologyEx(mask, cv.MORPH_CLOSE, kernel)
+        mask = cv.morphologyEx(mask, cv.MORPH_OPEN, kernel)
+        # mask=cv.morphologyEx(mask, cv.MORPH_ERODE, kernel)
 
         result = cv.bitwise_and(original, original, mask=mask)
         result[mask == 0] = 255

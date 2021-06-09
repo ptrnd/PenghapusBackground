@@ -38,7 +38,7 @@ class Visualize:
         self.frame_tiga.grid(row=0, column=2, sticky='ne')
 
         self.frame_img = tk.Frame(master=self.window, borderwidth=1)
-        self.frame_img.grid(row=1,column=0, columnspan=4)
+        self.frame_img.grid(row=2,column=0, columnspan=4)
 
         #Before
         self.frame_empat = tk.Frame(master=self.frame_img, borderwidth=1)
