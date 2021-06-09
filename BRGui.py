@@ -38,16 +38,16 @@ class Visualize:
         self.frame_tiga.grid(row=0, column=2, sticky='ne')
 
         self.frame_img = tk.Frame(master=self.window, borderwidth=1)
-        self.frame_img.grid(row=1,column=0, columnspan=3)
+        self.frame_img.grid(row=1,column=0, columnspan=4)
 
         #Before
         self.frame_empat = tk.Frame(master=self.frame_img, borderwidth=1)
         self.lbl_before = tk.Label(master=self.frame_empat, text='Before', width=10)
-        self.lbl_before.pack(pady=3)
+        self.lbl_before.pack(pady=0)
         
         self.canvas_before = tk.Canvas(master=self.frame_empat)
         self.canvas_before.pack(side=tk.LEFT)
-        self.imgBefore = tk.PhotoImage(file="doraemon hitam.png")
+        self.imgBefore = tk.PhotoImage(file="init.png")
         self.imgBefore = self.imgBefore.subsample(2)
         self.canvas_before.create_image(100,100,image=self.imgBefore)
 
@@ -56,11 +56,11 @@ class Visualize:
         #After
         self.frame_lima = tk.Frame(master=self.frame_img, borderwidth=1)
         self.lbl_after = tk.Label(master=self.frame_lima, text='After', width=10)
-        self.lbl_after.pack(pady=3)
+        self.lbl_after.pack(pady=0)
 
         self.canvas_after = tk.Canvas(master=self.frame_lima)
         self.canvas_after.pack(side=tk.RIGHT)
-        self.imgAfter = tk.PhotoImage(file="doraemon hitam.png")
+        self.imgAfter = tk.PhotoImage(file="init.png")
         self.imgAfter = self.imgAfter.subsample(2)
         self.canvas_after.create_image(100,100,image=self.imgAfter)
         self.frame_lima.grid(row=0, column=1, sticky='s')
