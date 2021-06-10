@@ -59,7 +59,7 @@ class Visualize:
         self.imgBefore = self.imgBefore.subsample(2)
         self.canvas_before.create_image(100,100,image=self.imgBefore)
 
-        self.frame_empat.grid(row=0, column=0, sticky='nsew')
+        self.frame_empat.grid(row=0, column=0, sticky='w')
 
         #After
         # label "setelah"

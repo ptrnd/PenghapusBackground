@@ -97,6 +97,7 @@ class Backend(VisualizeEventListener):
     def on_click_btn_file(self, event: tk.Event):
         filename = askopenfilename()
         time.sleep(2)
+        # menampilkan gambar asli di bagian "before"
         self.__window.lbl_file['text'] = filename
         self.__window.imgBefore = tk.PhotoImage(file=filename)
         self.__window.imgBefore = self.__window.imgBefore.subsample(3)
