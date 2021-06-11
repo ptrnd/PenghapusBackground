@@ -26,14 +26,14 @@ class Gui:
         
         # tombol memasukkan gambar
         self.frame_input_img = tk.Frame(master=self.window, borderwidth=1)  # , relief=tk.RAISED)
-        self.lbl_input = tk.Label(master=self.frame_input_img, text='Masukkan gambar jpg : ')
-        self.lbl_input.pack(pady=1, anchor="w")
+        self.lbl_input = tk.Label(master=self.frame_input_img, text='Pilih Gambar : ')
+        self.lbl_input.pack(padx=5, anchor="w")
         
-        self.btn_file = tk.Button(master=self.frame_input_img, text='Pilih File', width=10)
-        self.btn_file.pack(pady=1, anchor="w", side='left')
+        self.btn_file = tk.Button(master=self.frame_input_img, text='Pilih', width=10)
+        self.btn_file.pack(padx=5, anchor="w", side='left')
 
-        self.lbl_file = tk.Label(master=self.frame_input_img, text='nama file')
-        self.lbl_file.pack(pady=1, anchor="w")
+        self.lbl_file = tk.Label(master=self.frame_input_img, text='direktori?')
+        self.lbl_file.pack(padx=5, anchor="w")
         self.frame_input_img.grid(row=0, column=0, sticky='w')
 
 

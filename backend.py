@@ -25,18 +25,14 @@ class Backend(GuiEventListener):
         self.__window = window
 
     def Remove(self, file):
-        img = cv.imread(file, cv.IMREAD_UNCHANGED)
+        img = cv.imread(file)
         original = img.copy()
 
-        
-
-        ed = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        edges = cv.GaussianBlur(img, (3, 3), 0)
-        edges = cv.cvtColor(edges, cv.COLOR_BGR2GRAY)
-
-        l, thresh_im = cv.threshold(edges, 0, 255, cv.THRESH_BINARY  + cv.THRESH_OTSU)
+        blur = cv.GaussianBlur(img, (3, 3), 0)
+        gray = cv.cvtColor(blur, cv.COLOR_BGR2GRAY)
+        l, thresh_im = cv.threshold(gray, 0, 255, cv.THRESH_BINARY  + cv.THRESH_OTSU)
         u = 0.5*l
-        edges = cv.Canny(edges, l, u)
+        edges = cv.Canny(gray, l, u)
 
         _, thresh = cv.threshold(edges, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
         kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (7, 7))
@@ -66,8 +62,8 @@ class Backend(GuiEventListener):
         result = cv.bitwise_and(original, original, mask=mask)
         result[mask == 0] = 255
 
-        cv.imwrite('tmp/hasil.png', result)
-        img = Image.open('tmp/hasil.png')
+        cv.imwrite('tmp/mask.png', result)
+        img = Image.open('tmp/mask.png')
         img.convert("RGBA")
         datas = img.getdata()
 
@@ -80,10 +76,9 @@ class Backend(GuiEventListener):
             else:
                 newData.append(item)
 
-        print(int(self.__window.n_red.get()),self.__window.n_green.get(),int(self.__window.n_blue.get()))
         img.putdata(newData)
+        
         img.save("result/"+self.__window.input_name.get(), "PNG")
-
         self.__window.imgAfter = tk.PhotoImage(file="result/"+self.__window.input_name.get())
         self.__window.imgAfter = self.__window.imgAfter.subsample(2)
         self.__window.canvas_after.create_image(50,10,image=self.__window.imgAfter, anchor = "nw")
