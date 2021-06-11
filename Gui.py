@@ -4,21 +4,18 @@ import numpy as np
 import time
 from tkinter import ttk
 
-class VisualizeEventListener:
+class GuiEventListener:
     def btn_file(self, event: tk.Event):
-        pass
-
-    def btn_save(self, event: tk.Event):
         pass
 
     def btn_process(self, event: tk.Event):
         pass
 
-class Visualize:
-    def __init__(self, backend : VisualizeEventListener):
+class Gui:
+    def __init__(self, backend : GuiEventListener):
         self.window = tk.Tk()
         self.window.geometry('800x400')
-        self.window.title('Background Remover')
+        self.window.title('Background Change')
 
         self.backend = backend
 
@@ -66,16 +63,6 @@ class Visualize:
         
         #btn Proses
         self.frame_setting = tk.Frame(master=self.window, borderwidth=1)
-
-        # self.lbl_max = tk.Label(master=self.frame_setting, text='Max : ')
-        # self.lbl_max.pack(pady=1,anchor="n", side='left')
-        # self.n_max = tk.Entry(master=self.frame_setting, width=10)
-        # self.n_max.pack(pady=1, side='left')
-
-        # self.lbl_min = tk.Label(master=self.frame_setting, text='Min : ')
-        # self.lbl_min.pack(pady=1,anchor="n", side='left')
-        # self.n_min = tk.Entry(master=self.frame_setting, width=10)
-        # self.n_min.pack(pady=1,side='left')
 
         self.lbl_file_name = tk.Label(master=self.frame_setting, text='Simpan dengan Nama : ')
         self.lbl_file_name.pack(pady=1,anchor="n", side='left')

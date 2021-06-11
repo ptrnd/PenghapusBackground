@@ -1,4 +1,4 @@
-from BRGui import Visualize, VisualizeEventListener
+from Gui import Gui, GuiEventListener
 import numpy as np
 import cv2 as cv
 import time
@@ -12,7 +12,7 @@ from tkinter.filedialog import askopenfilename
 
 # from google.colab.patches import cv2_imshow
 
-class Backend(VisualizeEventListener):
+class Backend(GuiEventListener):
     def __init__(self):
         self.__window = None
 
@@ -21,7 +21,7 @@ class Backend(VisualizeEventListener):
         return self.__window
 
     @window.setter
-    def window(self, window: Visualize):
+    def window(self, window: Gui):
         self.__window = window
 
     def Remove(self, file):
@@ -66,8 +66,8 @@ class Backend(VisualizeEventListener):
         result = cv.bitwise_and(original, original, mask=mask)
         result[mask == 0] = 255
 
-        cv.imwrite('hasil.png', result)
-        img = Image.open('hasil.png')
+        cv.imwrite('tmp/hasil.png', result)
+        img = Image.open('tmp/hasil.png')
         img.convert("RGBA")
         datas = img.getdata()
 
