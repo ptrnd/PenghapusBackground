@@ -1,5 +1,5 @@
 from Gui import Gui
-from backend import Backend
+from Backend import Backend
 
 class Main:
     @staticmethod
